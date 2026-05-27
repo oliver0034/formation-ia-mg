@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation IA — ChatGPT & Claude | MG Traiteur</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fuchsia:#C5175A;
+  --fuchsia-d:#A01248;
+  --fuchsia-l:#D94070;
+  --bordeaux:#6B1A3A;
+  --bordeaux-d:#4A0F28;
+  --bordeaux-deep:#3A0A1E;
+  --rose:#B5154A;
+  --rose-d:#8B0A35;
+  --dark:#1A1A1A;
+  --charcoal:#2E2E2E;
+  --grey:#666;
+  --grey-l:#999;
+  --off:#F5F0F2;
+  --white:#FFFFFF;
+  --grad-logo:linear-gradient(135deg,#B5154A 0%,#8B0A35 100%);
+  --grad-header:linear-gradient(135deg,#3A0A1E 0%,#6B1A3A 55%,#A01248 100%);
+  --grad-accent:linear-gradient(90deg,#C5175A 0%,#6B1A3A 100%);
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Montserrat',sans-serif;
+  --radius:14px;
+  --shadow:0 4px 24px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--charcoal);line-height:1.6}
+
+/* ── SIDEBAR NAV ── */
+.sidebar{
+  position:fixed;top:0;left:0;width:260px;height:100vh;
+  background:var(--grad-header);
+  display:flex;flex-direction:column;
+  z-index:100;overflow-y:auto;
+  box-shadow:4px 0 32px rgba(0,0,0,.3);
+}
+.sidebar-logo{
+  padding:28px 24px 20px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.sidebar-logo img{width:110px;border-radius:10px}
+.sidebar-title{
+  padding:20px 24px 8px;
+  font-family:var(--fd);font-size:18px;font-weight:300;
+  color:rgba(255,255,255,.9);font-style:italic;line-height:1.2;
+}
+.sidebar-sub{padding:0 24px 20px;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--fuchsia-l);}
+.nav-section{padding:8px 0;}
+.nav-section-label{
+  padding:10px 24px 6px;
+  font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+}
+.nav-link{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 24px;
+  font-size:11px;font-weight:500;letter-spacing:.5px;
+  color:rgba(255,255,255,.65);
+  text-decoration:none;
+  transition:all .2s;
+  border-left:2px solid transparent;
+}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(197,23,90,.2);border-left-color:var(--fuchsia);}
+.nav-link .icon{width:16px;text-align:center;font-size:12px;flex-shrink:0;}
+.nav-progress{
+  margin-top:auto;padding:20px 24px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.progress-label{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.progress-bar{height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--grad-accent);border-radius:2px;width:0%;transition:width .5s;}
+
+/* ── MAIN ── */
+.main{margin-left:260px;min-height:100vh;}
+
+/* ── HERO ── */
+.hero{
+  background:var(--grad-header);
+  padding:72px 64px 64px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'IA';
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--fd);font-size:280px;font-weight:300;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+  letter-spacing:-10px;
+}
+.hero-tag{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--fuchsia-l);margin-bottom:16px;}
+.hero h1{font-family:var(--fd);font-size:56px;font-weight:300;color:#fff;line-height:1.05;margin-bottom:8px;}
+.hero h1 em{color:var(--fuchsia-l);font-style:italic;}
+.hero-desc{font-size:14px;font-weight:300;color:rgba(255,255,255,.6);max-width:560px;margin-top:16px;line-height:1.7;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;}
+.pill{
+  padding:7px 18px;border-radius:100px;
+  font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);
+}
+.pill-hot{background:var(--fuchsia);border-color:var(--fuchsia);color:#fff;}
+
+/* ── CONTENT ── */
+.content{padding:56px 64px;max-width:860px;}
+
+/* ── CHAPTER HEADER ── */
+.chapter{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:40px;margin-top:56px;
+  padding-bottom:16px;
+  border-bottom:1px solid #DDD;
+  position:relative;
+}
+.chapter::after{content:'';position:absolute;bottom:-1px;left:0;width:50px;height:3px;background:var(--grad-accent);}
+.chapter-num{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--grad-logo);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:22px;font-weight:400;color:#fff;
+  flex-shrink:0;
+}
+.chapter-text{}
+.chapter-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--fuchsia);margin-bottom:2px;}
+.chapter h2{font-family:var(--fd);font-size:34px;font-weight:400;color:var(--bordeaux);line-height:1.1;}
+
+/* ── SECTION TITLE ── */
+.s-title{
+  font-family:var(--fd);font-size:24px;font-weight:400;font-style:italic;
+  color:var(--bordeaux);margin:36px 0 16px;
+}
+
+/* ── PROSE ── */
+p{font-size:14px;font-weight:300;line-height:1.8;color:var(--charcoal);margin-bottom:16px;}
+p strong{font-weight:600;color:var(--dark);}
+
+/* ── RULE ── */
+.rule{
+  background:#fff;border-radius:var(--radius);
+  border-left:4px solid var(--fuchsia);
+  padding:18px 22px;margin:20px 0;
+  box-shadow:var(--shadow);
+  display:flex;gap:14px;align-items:flex-start;
+}
+.rule-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.rule-text{font-size:13px;line-height:1.65;}
+.rule-text strong{color:var(--fuchsia);display:block;margin-bottom:3px;font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+
+/* ── CARDS GRID ── */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.card{
+  background:#fff;border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.14);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-accent);}
+.card-icon{font-size:28px;margin-bottom:12px;}
+.card h3{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--bordeaux);margin-bottom:8px;}
+.card p{font-size:12px;margin-bottom:0;color:var(--grey);}
+
+/* ── CARD DARK ── */
+.card-dark{
+  background:var(--bordeaux-d);border-radius:var(--radius);
+  padding:28px 32px;margin:20px 0;position:relative;overflow:hidden;
+}
+.card-dark::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:var(--fuchsia);opacity:.1;}
+.card-dark .tag{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--fuchsia-l);margin-bottom:10px;display:block;}
+.card-dark h3{font-family:var(--fd);font-size:22px;font-weight:300;font-style:italic;color:#fff;margin-bottom:10px;}
+.card-dark p{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:0;}
+
+/* ── STEPS ── */
+.steps{margin:24px 0;display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid #EEE;position:relative;}
+.step:last-child{border-bottom:none;}
+.step-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--grad-logo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.step-body{}
+.step-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;letter-spacing:.3px;}
+.step-desc{font-size:12px;color:var(--grey);line-height:1.6;margin-bottom:0;}
+
+/* ── COMPARE TABLE ── */
+.compare{width:100%;border-collapse:collapse;margin:24px 0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.compare th{background:var(--bordeaux-d);color:#fff;padding:14px 18px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-align:left;}
+.compare th:first-child{background:var(--bordeaux-deep);}
+.compare td{padding:13px 18px;font-size:12px;color:var(--charcoal);border-bottom:1px solid #EEE;vertical-align:top;line-height:1.55;}
+.compare tr:last-child td{border-bottom:none;}
+.compare tr:nth-child(even) td{background:#FAFAFA;}
+.compare td:first-child{font-weight:600;color:var(--bordeaux);background:#FFF8FA;}
+.badge-yes{display:inline-block;padding:2px 10px;border-radius:100px;background:#E8F7EE;color:#2D9B5A;font-size:10px;font-weight:700;}
+.badge-no{display:inline-block;padding:2px 10px;border-radius:100px;background:#FEF2F2;color:#DC2626;font-size:10px;font-weight:700;}
+.badge-partial{display:inline-block;padding:2px 10px;border-radius:100px;background:#FFF8E6;color:#D97706;font-size:10px;font-weight:700;}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight{
+  background:linear-gradient(135deg,rgba(197,23,90,.08) 0%,rgba(107,26,58,.08) 100%);
+  border:1px solid rgba(197,23,90,.2);
+  border-radius:var(--radius);padding:24px 28px;margin:24px 0;
+}
+.highlight-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--fuchsia);margin-bottom:10px;}
+.highlight p{margin-bottom:0;font-size:13px;}
+
+/* ── WARNING ── */
+.warning{
+  background:#FFF8E6;border:1px solid #F59E0B;border-radius:var(--radius);
+  padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;
+}
+.warning-icon{font-size:20px;flex-shrink:0;}
+.warning p{margin-bottom:0;font-size:13px;color:#92400E;}
+
+/* ── CODE BLOCK ── */
+.code-block{
+  background:var(--dark);border-radius:var(--radius);
+  padding:20px 24px;margin:16px 0;
+  font-family:'Courier New',monospace;font-size:12px;
+  color:#E8E8E8;line-height:1.7;overflow-x:auto;
+}
+.code-block .c-key{color:#D94070;}
+.code-block .c-val{color:#C5175A;}
+.code-block .c-str{color:#98C379;}
+.code-block .c-cmt{color:#555;}
+
+/* ── LIST STYLED ── */
+.list-mg{list-style:none;margin:16px 0 20px;padding:0;}
+.list-mg li{
+  padding:10px 0 10px 28px;position:relative;
+  font-size:13px;color:var(--charcoal);
+  border-bottom:1px solid #EEE;line-height:1.6;
+}
+.list-mg li:last-child{border-bottom:none;}
+.list-mg li::before{
+  content:'→';position:absolute;left:0;
+  color:var(--fuchsia);font-weight:700;font-size:12px;
+}
+
+/* ── TOOLS GRID ── */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+.tool{
+  background:#fff;border-radius:var(--radius);
+  padding:20px;text-align:center;box-shadow:var(--shadow);
+  transition:transform .2s;
+}
+.tool:hover{transform:translateY(-3px);}
+.tool-icon{font-size:32px;margin-bottom:10px;}
+.tool-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:4px;}
+.tool-role{font-size:10px;color:var(--grey);line-height:1.4;}
+.tool-price{font-size:10px;font-weight:600;color:var(--fuchsia);margin-top:6px;}
+
+/* ── ACTION PLAN ── */
+.action-plan{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+.action-day{
+  background:#fff;border-radius:var(--radius);
+  padding:20px 24px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:start;
+}
+.action-day-num{
+  background:var(--grad-logo);
+  border-radius:10px;padding:10px;text-align:center;
+}
+.action-day-num .d{font-family:var(--fd);font-size:24px;font-weight:300;color:#fff;line-height:1;}
+.action-day-num .l{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px;}
+.action-tasks{list-style:none;}
+.action-tasks li{font-size:12px;color:var(--charcoal);padding:4px 0 4px 20px;position:relative;line-height:1.5;}
+.action-tasks li::before{content:'☐';position:absolute;left:0;color:var(--fuchsia);}
+
+/* ── QUOTE ── */
+.quote{
+  border-left:3px solid var(--fuchsia);
+  margin:28px 0;padding:16px 24px;
+  background:#fff;border-radius:0 var(--radius) var(--radius) 0;
+  box-shadow:var(--shadow);
+}
+.quote p{font-family:var(--fd);font-size:20px;font-weight:300;font-style:italic;color:var(--bordeaux);margin-bottom:6px;}
+.quote cite{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--grad-accent);margin:48px 0;border:none;opacity:.3;}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--bordeaux-deep);padding:32px 64px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer p{font-size:11px;color:rgba(255,255,255,.4);}
+.footer strong{color:var(--fuchsia-l);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.chapter,.rule,.card,.highlight,.step,.tool,.action-day{animation:fadeUp .5s ease both;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .main{margin-left:0;}
+  .hero,.content{padding:40px 24px;}
+  .cards,.tools{grid-template-columns:1fr;}
+  .footer{padding:24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <img src="data:image/jpeg;base64,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" alt="MG Traiteur">
+  </div>
+  <div class="sidebar-title">Maîtriser ChatGPT<br>& Claude</div>
+  <div class="sidebar-sub">Formation IA · 2026</div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Introduction</div>
+    <a href="#intro" class="nav-link"><span class="icon">🎯</span>Pourquoi cette formation</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Partie 1 — Les bases</div>
+    <a href="#projets" class="nav-link"><span class="icon">📁</span>Penser en projets</a>
+    <a href="#chatgpt" class="nav-link"><span class="icon">💬</span>ChatGPT en profondeur</a>
+    <a href="#gpts" class="nav-link"><span class="icon">🤖</span>Les GPTs spécialisés</a>
+    <a href="#connecteurs" class="nav-link"><span class="icon">🔗</span>Les connecteurs</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Partie 2 — Claude</div>
+    <a href="#claude" class="nav-link"><span class="icon">⚡</span>Claude vs ChatGPT</a>
+    <a href="#cowork" class="nav-link"><span class="icon">🖥️</span>CoWork</a>
+    <a href="#skills" class="nav-link"><span class="icon">🧠</span>Compétences & Skills</a>
+    <a href="#mcp" class="nav-link"><span class="icon">🔌</span>Connecteurs MCP</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Partie 3 — Workflows</div>
+    <a href="#outils" class="nav-link"><span class="icon">🛠️</span>Outils complémentaires</a>
+    <a href="#workflows" class="nav-link"><span class="icon">⚙️</span>Workflows avancés</a>
+    <a href="#organisation" class="nav-link"><span class="icon">👥</span>Organisation équipe</a>
+    <a href="#plan" class="nav-link"><span class="icon">📅</span>Plan d'action</a>
+  </div>
+
+  <div class="nav-progress">
+    <div class="progress-label">Progression</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Formation · Mai 2026 · MG Traiteur</div>
+    <h1>Maîtriser <em>ChatGPT</em><br>& Claude</h1>
+    <p class="hero-desc">De l'utilisateur occasionnel au chef d'orchestre. Tout ce que vous avez appris ce matin pour transformer l'IA en véritable levier de productivité pour votre activité.</p>
+    <div class="hero-pills">
+      <span class="pill-hot pill">ChatGPT</span>
+      <span class="pill-hot pill">Claude</span>
+      <span class="pill">Projets</span>
+      <span class="pill">Connecteurs</span>
+      <span class="pill">Workflows</span>
+      <span class="pill">CoWork</span>
+      <span class="pill">Perplexity</span>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <!-- ─── INTRO ─── -->
+    <div id="intro">
+      <div class="chapter">
+        <div class="chapter-num">✦</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Introduction</div>
+          <h2>Pourquoi cette formation change tout</h2>
+        </div>
+      </div>
+
+      <div class="quote">
+        <p>« La plupart des gens utilisent ChatGPT comme un moteur de recherche amélioré. »</p>
+        <cite>Le vrai problème à résoudre</cite>
+      </div>
+
+      <p>Ils posent une question, lisent la réponse, et recommencent. C'est comme engager un expert de haut niveau pour lui demander de trier ses emails.</p>
+      <p>Ce que vous allez apprendre ici, c'est autre chose : <strong>utiliser l'IA comme un chef de staff</strong>, pas comme un assistant ponctuel. La différence entre quelqu'un qui gagne 2h par semaine grâce à l'IA et quelqu'un qui multiplie sa capacité de travail par 4, c'est ce que vous allez lire dans les prochaines pages.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>ChatGPT</h3>
+          <p>Puissant pour la création visuelle, les GPTs spécialisés et le grand public. Idéal pour les images et la génération de contenu visuel.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Claude</h3>
+          <p>Supérieur pour le travail de fond, la mémoire longue, l'autonomie d'exécution et les tâches bureau complexes.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── PARTIE 1 : PROJETS ─── -->
+    <div id="projets">
+      <div class="chapter">
+        <div class="chapter-num">1</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 1 — Les fondations</div>
+          <h2>Penser en Projets</h2>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="rule-icon">🚫</div>
+        <div class="rule-text">
+          <strong>La règle absolue</strong>
+          Le nouveau chat, c'est pour la recette du tiramisu. Pour tout le reste, c'est un <strong>projet dédié</strong>.
+        </div>
+      </div>
+
+      <p>Chaque fois que tu ouvres un nouveau chat sans contexte, tu recommences à zéro. Tu passes les 5 premières minutes à réexpliquer qui tu es, ce que tu fais, comment tu travailles. Multiplié par 20 conversations par semaine, ce sont des heures perdues chaque mois.</p>
+
+      <h3 class="s-title">La logique du classeur</h3>
+      <p>Pense à tes projets comme à des classeurs scolaires. Tu ne mélanges pas tes cours de maths avec tes cours d'histoire. <strong>Un projet = un thème précis</strong>.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">📸</div>
+          <h3>Marketing Instagram</h3>
+          <p>Charte graphique, exemples de posts, calendrier éditorial, ton éditorial.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Client [Nom]</h3>
+          <p>Infos client, historique des missions, devis types, lettres de mission.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💰</div>
+          <h3>Comptabilité</h3>
+          <p>Templates de factures, règles fiscales, base fournisseurs, suivi dépenses.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🐴</div>
+          <h3>Élevage / Passion</h3>
+          <p>Fiches techniques, suivi des portées, tableaux de poids, documents spécifiques.</p>
+        </div>
+      </div>
+
+      <h3 class="s-title">Les 4 éléments d'un projet complet</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Les Instructions</div>
+            <div class="step-desc">Qui tu es, ce que tu fais, comment tu veux que l'IA travaille, quel est l'objectif. C'est le brief permanent. Méthode : parle 3 minutes en vocal, demande à l'IA de structurer en instructions.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Les Sources</div>
+            <div class="step-desc">PDF de formation, charte graphique, lien de ton site, exemples de contenu, fichiers de référence. Plus tu nourris, plus l'IA est précise.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Les Connecteurs</div>
+            <div class="step-desc">Les applications auxquelles l'IA a accès : Gmail, Google Drive, Airtable, Canva, Calendar. C'est ce qui lui permet d'agir, pas seulement de répondre.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Les Compétences / Skills</div>
+            <div class="step-desc">Des protocoles réutilisables que l'IA applique automatiquement. Une fois créée, une compétence n'a plus besoin d'être réexpliquée.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── CHATGPT ─── -->
+    <div id="chatgpt">
+      <div class="chapter">
+        <div class="chapter-num">2</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 1 — Suite</div>
+          <h2>ChatGPT en profondeur</h2>
+        </div>
+      </div>
+
+      <div id="gpts">
+        <h3 class="s-title">Les GPTs : tes agents spécialisés</h3>
+        <p>Un GPT, c'est une version de ChatGPT pré-configurée pour une tâche précise. Il en existe des milliers, créés par des experts, gratuitement accessibles.</p>
+
+        <div class="highlight">
+          <div class="highlight-label">💡 Puissance clé</div>
+          <p>Quand tu intègres un GPT dans ton projet, il agit selon TES instructions, pas les siennes génériques. Le GPT Canva dans ton projet Marketing connaît ta charte graphique, ton ton éditorial, ta cible.</p>
+        </div>
+
+        <div class="tools">
+          <div class="tool">
+            <div class="tool-icon">🎨</div>
+            <div class="tool-name">GPT Canva</div>
+            <div class="tool-role">Création de visuels directement dans ton compte Canva</div>
+            <div class="tool-price">Gratuit</div>
+          </div>
+          <div class="tool">
+            <div class="tool-icon">📊</div>
+            <div class="tool-name">GPT Marketing</div>
+            <div class="tool-role">Plan éditorial Instagram, stratégie contenu</div>
+            <div class="tool-price">Gratuit</div>
+          </div>
+          <div class="tool">
+            <div class="tool-icon">🔍</div>
+            <div class="tool-name">GPT SEO</div>
+            <div class="tool-role">Audit de mots-clés, structure d'articles optimisés</div>
+            <div class="tool-price">Gratuit</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="connecteurs">
+        <h3 class="s-title">Les connecteurs applicatifs</h3>
+        <p>Dans <strong>Paramètres → Applications</strong>, tu connectes ChatGPT à tes outils de travail.</p>
+
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Application</th>
+              <th>Ce que ça permet concrètement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>📧 Gmail</td><td>Rédiger, mettre en brouillon, envoyer des emails personnalisés</td></tr>
+            <tr><td>📂 Google Drive</td><td>Accéder à tes fichiers, en créer, les modifier directement</td></tr>
+            <tr><td>📋 Airtable</td><td>Lire et écrire dans ta base de données CRM, devis, clients</td></tr>
+            <tr><td>🎨 Canva</td><td>Créer et modifier des visuels dans ton compte directement</td></tr>
+            <tr><td>📅 Calendar</td><td>Créer des événements, consulter et gérer ton agenda</td></tr>
+          </tbody>
+        </table>
+
+        <div class="card-dark">
+          <span class="tag">Exemple concret — Pipeline prospection</span>
+          <h3>De Perplexity à Gmail en 4 étapes</h3>
+          <p>Recherche sur Perplexity → liste de contacts qualifiés → tu colles dans ChatGPT → <em>"Rédige un email personnalisé pour chaque contact, mets-les en brouillons Gmail"</em> → tu vérifies et envoies.</p>
+        </div>
+      </div>
+
+      <h3 class="s-title">Les tâches planifiées</h3>
+      <p>ChatGPT peut exécuter des tâches à heure fixe, <strong>sans que tu aies à demander</strong>. Dans les paramètres du projet, crée une tâche avec ce qu'il doit faire et quand.</p>
+
+      <ul class="list-mg">
+        <li>Publication Instagram quotidienne à partir du plan éditorial</li>
+        <li>Résumé des 3 derniers emails reçus chaque matin</li>
+        <li>Rapport hebdomadaire des dépenses depuis Airtable</li>
+        <li>Veille concurrentielle automatique chaque lundi</li>
+      </ul>
+
+      <h3 class="s-title">Limites de ChatGPT</h3>
+      <table class="compare">
+        <thead><tr><th>Limite</th><th>Impact</th><th>Solution</th></tr></thead>
+        <tbody>
+          <tr><td>Contexte court</td><td>Oublie les éléments anciens</td><td>Résumer et recommencer dans le projet</td></tr>
+          <tr><td>Pas d'accès local</td><td>Ne peut pas ouvrir un dossier Mac</td><td>Envoyer les fichiers ou passer par Drive</td></tr>
+          <tr><td>Limite horaire (20€)</td><td>Pause forcée toutes les 5h</td><td>Alterner avec Claude pendant la pause</td></tr>
+          <tr><td>Compte partagé</td><td>Perte de confidentialité</td><td>1 compte par collaborateur ou rôle</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── CLAUDE ─── -->
+    <div id="claude">
+      <div class="chapter">
+        <div class="chapter-num">3</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 2 — Claude</div>
+          <h2>Claude vs ChatGPT</h2>
+        </div>
+      </div>
+
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Fonctionnalité</th>
+            <th>ChatGPT</th>
+            <th>Claude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fenêtre de contexte</td><td><span class="badge-partial">Limitée</span></td><td><span class="badge-yes">5× plus grande</span></td></tr>
+          <tr><td>Accès dossier local</td><td><span class="badge-no">Non</span></td><td><span class="badge-yes">Oui — CoWork</span></td></tr>
+          <tr><td>Compétences / Skills</td><td><span class="badge-no">Non</span></td><td><span class="badge-yes">Oui — slash commands</span></td></tr>
+          <tr><td>Mode autonome</td><td><span class="badge-partial">Partiel</span></td><td><span class="badge-yes">Oui — agir sans demander</span></td></tr>
+          <tr><td>Génération d'images</td><td><span class="badge-yes">Oui — excellent</span></td><td><span class="badge-no">Non</span></td></tr>
+          <tr><td>Tâches récurrentes</td><td><span class="badge-yes">Oui</span></td><td><span class="badge-yes">Oui</span></td></tr>
+          <tr><td>Mémoire de dossier</td><td><span class="badge-no">Non</span></td><td><span class="badge-yes">Oui — fichiers .md</span></td></tr>
+          <tr><td>Extension Chrome</td><td><span class="badge-no">Non</span></td><td><span class="badge-yes">Oui — navigation autonome</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="s-title">Les 3 espaces de Claude</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>Chat</h3>
+          <p>Conversations rapides sans contexte persistant. Pour les tâches ponctuelles qui ne méritent pas un projet.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📁</div>
+          <h3>Projets</h3>
+          <p>Équivalent GPT + mémoire de dossier. Fenêtre de contexte ~5× plus grande que ChatGPT.</p>
+        </div>
+        <div class="card" style="grid-column:1/-1;">
+          <div class="card-icon">🖥️</div>
+          <h3>CoWork — Le niveau supérieur</h3>
+          <p>Accès direct au bureau Mac, dossiers physiques, compétences, agents autonomes et tâches planifiées. C'est ici que la magie opère.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── COWORK ─── -->
+    <div id="cowork">
+      <h3 class="s-title">CoWork en pratique</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">①</div>
+          <div class="step-body">
+            <div class="step-title">Accès au bureau physique</div>
+            <div class="step-desc">Claude lit et écrit dans un dossier physique de ton Mac. Tu lui désignes un dossier, il y travaille directement. Fini les copier-coller.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">②</div>
+          <div class="step-body">
+            <div class="step-title">Fichiers .md — La mémoire de projet</div>
+            <div class="step-desc">Claude crée automatiquement des fichiers de mémoire dans ton dossier. À chaque nouvelle conversation dans ce projet, il les relit et est immédiatement à jour de tout ce qui a été fait.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">③</div>
+          <div class="step-body">
+            <div class="step-title">Tâches planifiées autonomes</div>
+            <div class="step-desc">Exemple réel : tous les mercredis à 9h, Claude rédige un article SEO. Il recherche les mots-clés, va chercher les jurisprudences sur LégiFrance, structure l'article H1/H2/H3, génère le post Google My Business. Tout ça en arrière-plan.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">④</div>
+          <div class="step-body">
+            <div class="step-title">Mode "agir sans demander"</div>
+            <div class="step-desc">Par défaut, Claude demande confirmation avant chaque action. En activant le mode autonome, il travaille sans interruption jusqu'à la fin de la mission. S'il rencontre un obstacle, il le contourne ou code la solution.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-icon">⚠️</div>
+        <p><strong>Règle de sécurité :</strong> Toujours tester le mode autonome sur un espace vierge (nouveau dossier, nouveau projet Airtable) avant de lancer sur ta vraie base de données.</p>
+      </div>
+    </div>
+
+    <!-- ─── SKILLS ─── -->
+    <div id="skills">
+      <h3 class="s-title">Les Compétences (Skills)</h3>
+      <p>Les skills, c'est ce qui différencie un Claude généraliste d'un Claude expert de ton métier.</p>
+
+      <div class="highlight">
+        <div class="highlight-label">Comment créer une compétence</div>
+        <p>Réalise une tâche avec Claude en lui expliquant chaque étape → dis-lui <em>"Crée une compétence basée sur ce que nous venons de faire"</em> → il encode le protocole → la prochaine fois, tape <strong>/nom-de-la-competence</strong> et il applique sans réexpliquer.</p>
+      </div>
+
+      <ul class="list-mg">
+        <li><strong>/post-instagram</strong> — protocole complet de création d'un post (ton, format, CTA, hashtags)</li>
+        <li><strong>/devis</strong> — structure de devis avec tes tarifs, conditions, style</li>
+        <li><strong>/seo-article</strong> — protocole de rédaction SEO (H1/H2/H3, mots-clés, FAQ, meta)</li>
+        <li><strong>/analyse-client</strong> — trame d'analyse d'un nouveau dossier client</li>
+        <li><strong>/brief-trading</strong> — récupération des données marché et génération du brief quotidien</li>
+      </ul>
+    </div>
+
+    <!-- ─── MCP ─── -->
+    <div id="mcp">
+      <h3 class="s-title">Les connecteurs MCP</h3>
+      <p>Les MCP (Model Context Protocol) permettent de brancher des sources de données externes directement dans les réponses de Claude.</p>
+
+      <table class="compare">
+        <thead><tr><th>Connecteur MCP</th><th>Ce que ça permet</th></tr></thead>
+        <tbody>
+          <tr><td>⚖️ LégiFrance</td><td>Accès à toutes les lois, jurisprudences, arrêts en temps réel</td></tr>
+          <tr><td>🔍 Perplexity</td><td>Recherche web avancée directement depuis Claude (via API)</td></tr>
+          <tr><td>📂 Google Drive</td><td>Lecture/écriture de fichiers Drive en temps réel</td></tr>
+          <tr><td>📧 Gmail + Calendar</td><td>Gestion d'emails et d'agenda depuis une conversation</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <span class="c-cmt">// Ajouter un connecteur MCP manquant :</span><br>
+        <span class="c-cmt">// 1. Rechercher dans Google : "MCP [nom de l'outil] Anthropic"</span><br>
+        <span class="c-cmt">// 2. Récupérer le code de configuration</span><br>
+        <span class="c-cmt">// 3. Le coller dans les paramètres développeur de Claude</span><br>
+        <span class="c-cmt">// 4. Claude a désormais accès à cet outil</span>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── OUTILS ─── -->
+    <div id="outils">
+      <div class="chapter">
+        <div class="chapter-num">4</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 3 — Workflows</div>
+          <h2>Outils complémentaires</h2>
+        </div>
+      </div>
+
+      <div class="tools">
+        <div class="tool">
+          <div class="tool-icon">🔍</div>
+          <div class="tool-name">Perplexity</div>
+          <div class="tool-role">Recherche web avancée. 47 sources là où Google en donne 10. Indispensable pour la prospection et la veille concurrentielle.</div>
+          <div class="tool-price">Gratuit / 20€ Pro</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon">🎙️</div>
+          <div class="tool-name">Fathom</div>
+          <div class="tool-role">Enregistre toutes tes réunions sur toutes les plateformes. Résumé IA automatique → connecteur Claude → devis en 10 minutes.</div>
+          <div class="tool-price">10€/mois</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon">📋</div>
+          <div class="tool-name">Airtable</div>
+          <div class="tool-role">Base de données centrale connectée à l'IA. L'IA lit, écrit, met à jour directement. Clients, devis, stocks, plannings.</div>
+          <div class="tool-price">Gratuit / 20€+</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon">💻</div>
+          <div class="tool-name">GitHub</div>
+          <div class="tool-role">Coffre-fort du code généré. Claude envoie directement le code créé. Réutilisable dans ChatGPT ou ailleurs.</div>
+          <div class="tool-price">Gratuit</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon">🎨</div>
+          <div class="tool-name">Canva + ChatGPT</div>
+          <div class="tool-role">Génération d'images et visuels via ChatGPT. Intégration Canva pour les publications social media.</div>
+          <div class="tool-price">Gratuit / 13€+</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon">🌐</div>
+          <div class="tool-name">Claude Chrome</div>
+          <div class="tool-role">Extension Chrome : Claude navigue sur tes sites connectés, récupère les données, les intègre dans les projets.</div>
+          <div class="tool-price">Inclus Claude Pro</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── WORKFLOWS ─── -->
+    <div id="workflows">
+      <div class="chapter">
+        <div class="chapter-num">5</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 3 — Suite</div>
+          <h2>Workflows avancés</h2>
+        </div>
+      </div>
+
+      <h3 class="s-title">Workflow SEO complet (article par semaine)</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Configuration (1 fois)</div>
+            <div class="step-desc">Créer dans Claude un projet avec les spécialités, l'URL du site, le connecteur LégiFrance, la compétence /seo-article, et la tâche planifiée : tous les mercredis à 9h.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Génération automatique (chaque semaine)</div>
+            <div class="step-desc">Claude identifie la thématique → recherche mots-clés → va sur LégiFrance → rédige l'article 2000 mots avec H1/H2/H3 + mots-clés en gras → génère le post Google My Business → enregistre dans le dossier projet.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Visuel (10 minutes)</div>
+            <div class="step-desc">Récupérer le code de l'article → coller dans ChatGPT → <em>"Crée une bannière 16:9 respectant cette charte graphique"</em> → image téléchargeable en format prêt à l'emploi.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Publication et indexation (15 minutes)</div>
+            <div class="step-desc">Copier-coller dans WordPress → nommer l'image avec les mots-clés (pas IMG_832.png) → poster sur Google My Business avec le lien → soumettre à Google Search Console.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <div class="highlight-label">⚠️ Règle critique — Naming des images</div>
+        <p>Google lit les noms de fichiers.<br>
+        ❌ <strong>IMG_832AB3.png</strong><br>
+        ✅ <strong>avocat-droit-travail-montpellier.jpg</strong><br>
+        ✅ <strong>oqtf-recours-delai-48h.jpg</strong></p>
+      </div>
+
+      <h3 class="s-title">Workflow Instagram automatisé</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Plan éditorial (1 fois par mois)</div>
+            <div class="step-desc">Dans le projet Marketing, demander un plan éditorial mensuel : thème, accroche, CTA, hashtags pour chaque jour.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Automatisation quotidienne</div>
+            <div class="step-desc">Tâche planifiée : chaque matin à 8h, Claude produit le post du jour (texte complet prêt à copier-coller) en se basant sur le plan éditorial et la charte.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Visuel (5 minutes)</div>
+            <div class="step-desc">Prendre le texte → Canva avec les couleurs déjà définies → publier. L'IA a fait 90% du travail.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="s-title">Workflow gestion client (Fathom → Airtable)</h3>
+      <div class="card-dark">
+        <span class="tag">Exemple complet — Nouveau prospect</span>
+        <h3>De l'appel au devis en 10 minutes</h3>
+        <p>Appel enregistré via Fathom → résumé automatique → Claude lit le résumé → crée la fiche client dans Airtable → génère le devis → prépare l'email de suivi avec pièce jointe.</p>
+      </div>
+
+      <h3 class="s-title">Bonnes pratiques — Gestion des conversations longues</h3>
+      <div class="rule">
+        <div class="rule-icon">♻️</div>
+        <div class="rule-text">
+          <strong>Quand la conversation tâtonne</strong>
+          Demande : <em>"Fais un résumé complet et structuré de tout ce qui a été fait dans cette conversation"</em> → ouvre une nouvelle conversation dans le même projet → colle le résumé → continue le travail.
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="rule-icon">📄</div>
+        <div class="rule-text">
+          <strong>Travailler page par page</strong>
+          1 conversation = 1 tâche précise. Pas tout le site en une fois. Page d'accueil d'abord, puis services, puis devis. Les projets CoWork gardent la mémoire transversale.
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── ORGANISATION ─── -->
+    <div id="organisation">
+      <div class="chapter">
+        <div class="chapter-num">6</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Partie 3 — Organisation</div>
+          <h2>Organisation équipe</h2>
+        </div>
+      </div>
+
+      <table class="compare">
+        <thead><tr><th>Option</th><th>Configuration</th><th>Coût</th><th>Idéal pour</th></tr></thead>
+        <tbody>
+          <tr><td>Claude individuel</td><td>1 abonnement par personne, projets indépendants</td><td>20€/mois/pers.</td><td>Confidentialité maximale</td></tr>
+          <tr><td>ChatGPT Business</td><td>Projets cloisonnés par rôle, admin voit l'usage</td><td>21€/collab./mois</td><td>Équipes 3-10 personnes</td></tr>
+          <tr><td>Compte partagé</td><td>Tous voient tout — à éviter</td><td>20€/mois</td><td>À éviter pour le pro</td></tr>
+        </tbody>
+      </table>
+
+      <div class="warning">
+        <div class="warning-icon">⚠️</div>
+        <p><strong>Règle critique :</strong> La comptabilité, les RH, les données financières → compte séparé, toujours. Un collaborateur ne doit pas avoir accès aux conversations des autres par défaut.</p>
+      </div>
+
+      <h3 class="s-title">Migration ChatGPT → Claude</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Exporter les données ChatGPT</div>
+            <div class="step-desc">ChatGPT → Paramètres → Confidentialité → Exporter mes données. Tu reçois un ZIP avec l'historique de toutes tes conversations.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Créer une synthèse</div>
+            <div class="step-desc">Demander à ChatGPT : <em>"Fais un résumé complet de tout ce que tu sais sur moi, mon activité, ma façon de travailler, mes projets en cours."</em> Copier ce résumé.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Importer dans Claude</div>
+            <div class="step-desc">Coller le résumé dans un nouveau projet Claude → <em>"Mémorise tout ça. Génère les instructions optimales pour ce projet."</em></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Reconstruction progressive</div>
+            <div class="step-desc">Ne pas tout recréer d'un coup. Recréer les projets au fil de l'utilisation, dans l'ordre de leur importance pour ton activité.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ─── PLAN D'ACTION ─── -->
+    <div id="plan">
+      <div class="chapter">
+        <div class="chapter-num">7</div>
+        <div class="chapter-text">
+          <div class="chapter-label">Pour commencer</div>
+          <h2>Plan d'action — Cette semaine</h2>
+        </div>
+      </div>
+
+      <div class="action-plan">
+        <div class="action-day">
+          <div class="action-day-num">
+            <div class="d">J1</div>
+            <div class="l">Lundi</div>
+          </div>
+          <ul class="action-tasks">
+            <li>Remplir la section Personnalisation de ChatGPT (via conversation vocale 3 min)</li>
+            <li>Créer 3 projets prioritaires dans ChatGPT</li>
+            <li>Transférer les fichiers clés dans chaque projet</li>
+          </ul>
+        </div>
+        <div class="action-day">
+          <div class="action-day-num">
+            <div class="d">J2</div>
+            <div class="l">Mardi</div>
+          </div>
+          <ul class="action-tasks">
+            <li>Connecter Gmail à ChatGPT dans Paramètres → Applications</li>
+            <li>Connecter Google Drive à ChatGPT</li>
+            <li>Tester : <em>"Rédige un email à [prénom] et mets-le en brouillon"</em></li>
+          </ul>
+        </div>
+        <div class="action-day">
+          <div class="action-day-num">
+            <div class="d">J3</div>
+            <div class="l">Mercredi</div>
+          </div>
+          <ul class="action-tasks">
+            <li>Prendre l'abonnement Claude (20€/mois)</li>
+            <li>Importer le résumé de l'historique ChatGPT</li>
+            <li>Créer le premier projet dans CoWork avec accès à un dossier Mac</li>
+          </ul>
+        </div>
+        <div class="action-day">
+          <div class="action-day-num">
+            <div class="d">J4</div>
+            <div class="l">Jeudi</div>
+          </div>
+          <ul class="action-tasks">
+            <li>Identifier une tâche répétitive à automatiser (post Instagram, compte-rendu…)</li>
+            <li>Créer la compétence correspondante dans Claude</li>
+            <li>Configurer la tâche planifiée associée</li>
+          </ul>
+        </div>
+        <div class="action-day">
+          <div class="action-day-num">
+            <div class="d">J5</div>
+            <div class="l">Vendredi</div>
+          </div>
+          <ul class="action-tasks">
+            <li>Mesurer le temps gagné sur la semaine</li>
+            <li>Identifier les 2 prochaines tâches à automatiser</li>
+            <li>Partager le bilan avec l'équipe et itérer</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top:40px;">
+        <p>« La différence entre quelqu'un qui dit "j'utilise l'IA" et quelqu'un qui en vit, c'est la profondeur de la configuration. L'outil brut, tout le monde y a accès. Le système personnalisé, c'est ce que vous venez de construire. »</p>
+        <cite>Formation MG Traiteur · Mai 2026</cite>
+      </div>
+
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 <strong>MG Traiteur</strong> &nbsp;·&nbsp; Formation IA interne</p>
+    <p>Document confidentiel &nbsp;·&nbsp; mg-traiteur.fr</p>
+  </footer>
+
+</main>
+
+<script>
+// Progress bar scroll
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+  document.getElementById('progressFill').style.width = Math.min(scrolled, 100) + '%';
+});
+
+// Active nav link
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
